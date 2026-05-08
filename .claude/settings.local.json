@@ -29,7 +29,9 @@
       "Bash(ssh-keyscan github.com)",
       "Bash(git push *)",
       "Bash(git remote *)",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(gh run *)",
+      "WebFetch(domain:wustghj.github.io)"
     ]
   }
 }

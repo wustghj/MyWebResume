@@ -35,7 +35,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section id="skills-section" data-section-id="skills" class="section-padding">
+  <section id="skills-section" data-section-id="skills" class="pt-12 pb-24">
     <h2 class="section-heading">Skills</h2>
     <div class="skills-grid">
       <div

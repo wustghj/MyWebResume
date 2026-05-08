@@ -34,7 +34,7 @@ export const personalInfo = {
   email: 'libailinux0@gmail.com',
   phone: '15623662523',
   github: 'github.com/wustghj',
-  pdfPath: '/甘鸿谨_C++后端开发.pdf',
+  pdfPath: import.meta.env.BASE_URL + '甘鸿谨_C++后端开发.pdf',
 }
 
 export const skillGroups: SkillGroup[] = [
