@@ -25,7 +25,7 @@ useTypewriter(subtitleRef, personalInfo.title, { duration: 1.5, delay: 0.3 })
 
 <style scoped>
 .hero {
-  min-height: 85vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
