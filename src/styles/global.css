@@ -32,3 +32,19 @@ code, pre, .font-mono {
 ::selection {
   background-color: #DBEAFE;
 }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (max-width: 1024px) {
+  .content-width {
+    max-width: 100%;
+  }
+
+  .section-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
