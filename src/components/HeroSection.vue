@@ -12,8 +12,8 @@ useTypewriter(subtitleRef, personalInfo.title, { duration: 1.5, delay: 0.3 })
     <div class="hero-bg" />
     <h1 class="hero-name">{{ personalInfo.name }}</h1>
     <p class="hero-name-en">{{ personalInfo.nameEn }}</p>
-    <p ref="subtitleRef" class="hero-title">
-      <span class="cursor-blink">|</span>
+    <p class="hero-title">
+      <span ref="subtitleRef" class="typewriter-text"></span><span class="cursor-blink">|</span>
     </p>
     <p class="hero-tagline">{{ personalInfo.tagline }}</p>
     <div class="hero-links">

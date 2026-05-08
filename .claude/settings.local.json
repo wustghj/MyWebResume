@@ -19,7 +19,9 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git rm *)",
-      "Bash(npx vue-tsc *)"
+      "Bash(npx vue-tsc *)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl -s http://localhost:5173/)"
     ]
   }
 }

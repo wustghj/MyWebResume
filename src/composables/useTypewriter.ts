@@ -14,20 +14,18 @@ export function useTypewriter(
     if (!el) return
 
     ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { text: '' },
-        {
-          text,
-          duration,
-          delay,
-          ease: 'none',
-        },
-      )
-    })
+      const tl = gsap.timeline({ delay })
 
-    gsap.delayedCall(delay + duration, () => {
-      el.style.setProperty('--cursor-visible', '1')
+      // Animate a counter from 0 to text.length to simulate typing
+      const obj = { charCount: 0 }
+      tl.to(obj, {
+        charCount: text.length,
+        duration,
+        ease: 'none',
+        onUpdate: () => {
+          el.textContent = text.slice(0, Math.round(obj.charCount))
+        },
+      })
     })
   })
 
