@@ -21,7 +21,15 @@
       "Bash(git rm *)",
       "Bash(npx vue-tsc *)",
       "WebFetch(domain:localhost)",
-      "Bash(curl -s http://localhost:5173/)"
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(curl *)",
+      "Bash(gh auth *)",
+      "Bash(sudo -S apt install gh -y)",
+      "Bash(gh repo *)",
+      "Bash(ssh-keyscan github.com)",
+      "Bash(git push *)",
+      "Bash(git remote *)",
+      "Bash(gh api *)"
     ]
   }
 }
