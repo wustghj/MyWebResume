@@ -14,25 +14,27 @@ const year = new Date().getFullYear()
 <style scoped>
 .footer {
   text-align: center;
-  padding-top: 48px;
-  padding-bottom: 48px;
-  border-top: 1px solid #E5E7EB;
+  padding-top: 36px;
+  padding-bottom: 36px;
+  border-top: 1px solid #E8ECF2;
 }
 
 .footer-text {
-  font-size: 0.9rem;
+  font-size: 12px;
   color: #6B7280;
   margin-bottom: 4px;
 }
 
 .footer-email {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
+  font-size: 11px;
   color: #2563EB;
   text-decoration: none;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px solid transparent;
 }
 
 .footer-email:hover {
-  text-decoration: underline;
+  border-bottom-color: #2563EB;
 }
 </style>
