@@ -20,9 +20,9 @@ const { activeSection } = useActiveSection(navSections.map(s => s.id))
 </script>
 
 <template>
-  <div class="app-layout">
+  <div class="app-layout flex justify-center">
     <SidebarNav :sections="navSections" :active-section="activeSection" />
-    <main class="content-width">
+    <main class="content-width w-full">
       <HeroSection />
       <SkillsSection />
       <ExperienceSection />
