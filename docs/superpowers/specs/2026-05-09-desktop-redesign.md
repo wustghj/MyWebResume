@@ -91,23 +91,58 @@ Fixed sidebar (48px, dots only) on the left, labels appear on hover/active. Main
 - White background with backdrop-blur, top border
 - Safe area inset padding
 
-## Animations (GSAP + ScrollTrigger)
+## Animations & Motion Design (Linear-inspired)
 
-### Scroll Reveals
-- Skills grid: stagger 80ms, opacity+fade-up 16px + scale 0.98→1
-- Experience cards: stagger 150ms, opacity+fade-up 30px + scale
-- Metrics: scale-in with slight elastic ease for visual impact
-- Internship/Education: same fade-up pattern
+### Philosophy
 
-### Micro-interactions
-- Card hover: border color transition 150ms ease
-- Tag hover: background/text color transition 150ms ease
-- Nav dot: scale + glow transition 200ms ease
-- Links: border-bottom expands on hover 200ms ease
+Every motion should feel intentional and satisfying — never sluggish, never jarring. Linear uses spring physics for natural-feeling transitions that have a bit of "bounce" at the end. Animations are quick (100-250ms for micro, 300-500ms for reveals) so they feel responsive rather than decorative.
+
+### Easing
+
+- **Spring (GSAP `elastic.out(1, 0.5)`)**: scale-in effects, metric callouts, active indicators
+- **Power3.out (GSAP)**: scroll reveals, card entrances — fast start, gentle settle
+- **Power2.out**: hover transitions, color changes — smooth, no overshoot
+- **CSS `cubic-bezier(0.16, 1, 0.3, 1)`**: UI micro-interactions (Linear's signature curve — quick snap with slight deceleration)
+
+### Scroll-Triggered Reveals (GSAP + ScrollTrigger)
+
+| Element | Animation | Duration | Stagger | Easing |
+|---------|-----------|----------|---------|--------|
+| Hero content (name, title, tagline) | Fade up 20px, opacity 0→1 | 0.6s | 0.1s | Power3.out |
+| Skills grid cards | Fade up 24px, opacity 0→1, scale 0.96→1 | 0.5s | 0.08s | Power3.out |
+| Experience cards | Fade up 30px, opacity 0→1, scale 0.97→1 | 0.55s | 0.12s | Power3.out |
+| Metric callouts (inside cards) | Scale 0.9→1, opacity 0→1 | 0.4s | 0.06s | elastic.out(1, 0.5) |
+| Sub-section cards (inside experience) | Fade up 16px, opacity 0→1 | 0.35s | 0.05s | Power2.out |
+| Internship card | Fade up 20px, opacity 0→1 | 0.5s | — | Power3.out |
+| Education / Open Source cards | Fade up 20px, opacity 0→1 | 0.45s | 0.08s | Power3.out |
+
+All reveals use `start: 'top 85%'` so cards animate just as they enter the viewport — feels responsive, not pre-loaded.
+
+### Hover Micro-Interactions
+
+- **Cards**: border #E8ECF2 → #2563EB, plus `box-shadow: 0 0 0 1px rgba(37,99,235,0.08)` ring. 150ms, `cubic-bezier(0.16, 1, 0.3, 1)`
+- **Skill/tech tags**: background fills #DBEAFE from #F3F4F6, text darkens. 120ms, `cubic-bezier(0.16, 1, 0.3, 1)`
+- **Nav dots**: scale 1→1.4, glow ring appears. spring-like 200ms
+- **Links (hero, footer)**: border-bottom width 1px→2px, slight Y shift -1px. 150ms
+- **Metric boxes**: subtle scale 1→1.03 on hover with border highlight. 150ms
+
+### Sidebar Navigation
+
+- Active dot indicator: slides between sections with spring physics (GSAP `power2.inOut`, 300ms). Uses a floating highlight pill instead of just color change — more Linear-like.
+- Dot hover: expands slightly + shows label text with 100ms fade-in
+- Snaps to nearest section on fast scroll, no debounce delay
+
+### Page-Level Polish
+
+- **Initial load**: hero content fades in on mount (no scroll needed). Name first (0.15s delay), then typewriter starts (0.3s delay), tagline and links fade in after typewriter begins.
+- **Smooth scroll**: `scroll-behavior: smooth` (already set) — keep this for nav clicks
+- **Focus ring**: any interactive element on keyboard focus gets a 2px accent ring with 2px offset, animated in (like Linear's command menu focus style)
 
 ### Hero Typewriter
+
 - Keep existing GSAP typewriter implementation (unchanged)
-- Keep blink cursor animation (unchanged)
+- Blink cursor: keep, but use 0.8s step-end (slightly faster, more modern)
+- After typing completes, cursor can pause for 2s, then disappear (CSS transition opacity)
 
 ## Implementation Notes
 
