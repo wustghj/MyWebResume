@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="experience-card card">
+  <div class="experience-card card card-hover">
     <div class="exp-header">
       <div class="exp-company-row">
         <span class="exp-company">{{ experience.company }}</span>
@@ -27,7 +27,7 @@ defineProps<{
       <div
         v-for="sub in experience.subSections"
         :key="sub.title"
-        class="exp-sub-card"
+        class="sub-card"
       >
         <h4 class="exp-sub-title">{{ sub.title }}</h4>
         <ul class="exp-bullets">
@@ -37,7 +37,7 @@ defineProps<{
           <span
             v-for="t in sub.techTags"
             :key="t"
-            class="tag"
+            class="tag tag-hover"
           >{{ t }}</span>
         </div>
       </div>
@@ -47,7 +47,7 @@ defineProps<{
       <span
         v-for="t in experience.techStack"
         :key="t"
-        class="tag exp-tech-tag"
+        class="tag tag-hover exp-tech-tag"
       >{{ t }}</span>
     </div>
   </div>
@@ -55,7 +55,7 @@ defineProps<{
 
 <style scoped>
 .experience-card {
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 
 .exp-header {
@@ -64,11 +64,11 @@ defineProps<{
   align-items: baseline;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .exp-company-row {
-  font-size: 0.95rem;
+  font-size: 13px;
   color: #6B7280;
 }
 
@@ -83,45 +83,47 @@ defineProps<{
 }
 
 .exp-role {
-  font-size: 0.9rem;
+  font-size: 12px;
 }
 
 .exp-period {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
+  font-size: 11px;
   color: #9CA3AF;
 }
 
 .exp-project-title {
-  font-size: 1.3rem;
-  margin-bottom: 4px;
+  font-family: 'Noto Serif SC', 'Lora', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 2px;
 }
 
 .exp-subtitle {
-  font-size: 0.95rem;
+  font-size: 12px;
   color: #6B7280;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
 }
 
 .exp-sub-sections {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
-.exp-sub-card {
-  background: #F9FAFB;
-  border: 1px solid #F3F4F6;
+.sub-card {
+  background: #FAFAFA;
+  border: 1px solid #F0F1F3;
   border-radius: 6px;
-  padding: 14px 18px;
+  padding: 14px;
 }
 
 .exp-sub-title {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
+  font-size: 12px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   color: #1F2937;
 }
 
@@ -133,10 +135,10 @@ defineProps<{
 
 .exp-bullets li {
   position: relative;
-  padding-left: 16px;
-  font-size: 0.9rem;
+  padding-left: 14px;
+  font-size: 11px;
   color: #4B5563;
-  line-height: 1.7;
+  line-height: 1.6;
   margin-bottom: 4px;
 }
 
@@ -150,19 +152,25 @@ defineProps<{
 .exp-sub-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
 }
 
 .exp-tech-row {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  padding-top: 16px;
-  border-top: 1px solid #F3F4F6;
+  padding-top: 14px;
+  border-top: 1px solid #F0F1F3;
 }
 
 .exp-tech-tag {
-  font-size: 0.8rem;
+  font-size: 10px;
   background: #FAFAFA;
+}
+
+@media (max-width: 768px) {
+  .exp-sub-sections {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
