@@ -9,19 +9,19 @@ let triggers: ScrollTrigger[] = []
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
 
-  const groups = document.querySelectorAll('.skill-group')
   const tl = gsap.fromTo(
-    groups,
-    { opacity: 0, y: 24 },
+    '.skill-group',
+    { opacity: 0, y: 24, scale: 0.96 },
     {
       opacity: 1,
       y: 0,
+      scale: 1,
       duration: 0.5,
-      stagger: 0.12,
-      ease: 'power2.out',
+      stagger: 0.08,
+      ease: 'power3.out',
       scrollTrigger: {
         trigger: '#skills-section',
-        start: 'top 75%',
+        start: 'top 85%',
       },
     },
   )
@@ -35,20 +35,20 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section id="skills-section" data-section-id="skills" class="pt-5 pb-24">
+  <section id="skills-section" data-section-id="skills" class="section-padding">
     <h2 class="section-heading">Skills</h2>
     <div class="skills-grid">
       <div
         v-for="group in skillGroups"
         :key="group.category"
-        class="skill-group card"
+        class="skill-group card card-hover"
       >
         <h3 class="skill-category">{{ group.category }}</h3>
         <div class="skill-tags">
           <span
             v-for="skill in group.skills"
             :key="skill"
-            class="tag skill-tag"
+            class="tag tag-hover"
           >{{ skill }}</span>
         </div>
       </div>
@@ -58,38 +58,41 @@ onUnmounted(() => {
 
 <style scoped>
 .section-heading {
-  font-size: 1.75rem;
-  margin-bottom: 28px;
+  font-family: 'Noto Serif SC', 'Lora', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
 }
 
 .skills-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
 }
 
 .skill-category {
-  font-size: 1rem;
+  font-size: 12px;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: #1A1A1A;
 }
 
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
-.skill-tag {
-  transition: all 0.2s ease;
-  cursor: default;
+@media (max-width: 1024px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.skill-tag:hover {
-  border-color: #2563EB;
-  color: #2563EB;
-  background: #DBEAFE;
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
