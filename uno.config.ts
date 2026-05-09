@@ -27,7 +27,7 @@ export default defineConfig({
   shortcuts: {
     'section-padding': 'py-12',
     'content-width': 'max-w-275 mx-auto px-6',
-    'card': 'bg-surface border border-border rounded-10px p-6 transition-border duration-150',
+    'card': 'bg-surface border border-border rounded-10px p-6 transition-colors duration-150',
     'card-hover': 'hover:border-accent hover:shadow-[0_0_0_1px_rgba(37,99,235,0.08)]',
     'tag': 'inline-block px-2.5 py-0.5 text-10px font-mono border border-transparent rounded-full bg-[#F3F4F6] text-[#4B5563] transition-all duration-120',
     'tag-hover': 'hover:border-accent hover:text-accent hover:bg-accent-muted',
