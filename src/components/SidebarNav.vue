@@ -13,11 +13,16 @@ function scrollTo(id: string) {
 
 // Floating pill position
 const pillStyle = ref({ top: '0px', height: '0px' })
-let itemRefs: (HTMLElement | null)[] = []
+const itemRefMap = new Map<string, HTMLElement>()
+
+function setItemRef(id: string) {
+  return (el: any) => {
+    if (el) itemRefMap.set(id, el as HTMLElement)
+  }
+}
 
 function updatePill() {
-  const idx = props.sections.findIndex(s => s.id === props.activeSection)
-  const el = itemRefs[idx]
+  const el = itemRefMap.get(props.activeSection)
   if (el && el.parentElement) {
     const parentRect = el.parentElement.getBoundingClientRect()
     const elRect = el.getBoundingClientRect()
@@ -32,13 +37,15 @@ watch(() => props.activeSection, () => {
   requestAnimationFrame(updatePill)
 })
 
+const onResize = () => requestAnimationFrame(updatePill)
+
 onMounted(() => {
   requestAnimationFrame(updatePill)
-  window.addEventListener('resize', updatePill)
+  window.addEventListener('resize', onResize)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', updatePill)
+  window.removeEventListener('resize', onResize)
 })
 </script>
 
@@ -55,7 +62,7 @@ onUnmounted(() => {
         <li
           v-for="s in sections"
           :key="s.id"
-          :ref="(el: any) => itemRefs.push(el as HTMLElement)"
+          :ref="setItemRef(s.id)"
           class="nav-item"
           :class="{ active: activeSection === s.id }"
           @click="scrollTo(s.id)"
