@@ -33,18 +33,26 @@ code, pre, .font-mono {
   background-color: #DBEAFE;
 }
 
+/* Linear-style easing curve */
+:root {
+  --ease-linear: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
 
+/* Focus ring — Linear-style */
+:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Mobile: allow full-width on small screens */
 @media (max-width: 1024px) {
   .content-width {
     max-width: 100%;
-  }
-
-  .section-padding {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
   }
 }
