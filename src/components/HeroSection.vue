@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import { useTypewriter } from '@/composables/useTypewriter'
 import { personalInfo } from '@/data/resume'
 
 const subtitleRef = ref<HTMLElement | null>(null)
+let tl: gsap.core.Timeline | null = null
 
 onMounted(() => {
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+  tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
   tl.fromTo('.hero-name', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.15 })
   tl.fromTo('.hero-name-en', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.3')
   tl.fromTo('.hero-title-wrap', { opacity: 0 }, { opacity: 1, duration: 0.3 }, '-=0.1')
@@ -16,7 +17,11 @@ onMounted(() => {
 
   tl.call(() => {
     useTypewriter(subtitleRef, personalInfo.title, { duration: 1.5, delay: 0 })
-  }, undefined, '+=0')
+  })
+})
+
+onUnmounted(() => {
+  tl?.kill()
 })
 </script>
 
@@ -83,7 +88,7 @@ onMounted(() => {
 }
 
 .hero-name {
-  font-size: clamp(1.75rem, 3.5vw, 1.75rem);
+  font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   margin-bottom: 2px;
