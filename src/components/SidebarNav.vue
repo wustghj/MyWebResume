@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineProps<{
+import { ref, watch, onMounted, onUnmounted } from 'vue'
+
+const props = defineProps<{
   sections: { id: string; label: string }[]
   activeSection: string
 }>()
@@ -8,24 +10,64 @@ function scrollTo(id: string) {
   const el = document.querySelector(`[data-section-id="${id}"]`)
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
+
+// Floating pill position
+const pillStyle = ref({ top: '0px', height: '0px' })
+let itemRefs: (HTMLElement | null)[] = []
+
+function updatePill() {
+  const idx = props.sections.findIndex(s => s.id === props.activeSection)
+  const el = itemRefs[idx]
+  if (el && el.parentElement) {
+    const parentRect = el.parentElement.getBoundingClientRect()
+    const elRect = el.getBoundingClientRect()
+    pillStyle.value = {
+      top: `${elRect.top - parentRect.top}px`,
+      height: `${elRect.height}px`,
+    }
+  }
+}
+
+watch(() => props.activeSection, () => {
+  requestAnimationFrame(updatePill)
+})
+
+onMounted(() => {
+  requestAnimationFrame(updatePill)
+  window.addEventListener('resize', updatePill)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updatePill)
+})
 </script>
 
 <template>
+  <!-- Desktop sidebar -->
   <nav class="sidebar">
-    <ul class="nav-list">
-      <li
-        v-for="s in sections"
-        :key="s.id"
-        class="nav-item"
-        :class="{ active: activeSection === s.id }"
-        @click="scrollTo(s.id)"
-      >
-        <span class="nav-dot" />
-        <span class="nav-label">{{ s.label }}</span>
-      </li>
-    </ul>
+    <div class="nav-list-wrapper" style="position: relative;">
+      <!-- Floating pill -->
+      <div
+        class="nav-pill"
+        :style="{ top: pillStyle.top, height: pillStyle.height }"
+      />
+      <ul class="nav-list">
+        <li
+          v-for="s in sections"
+          :key="s.id"
+          :ref="(el: any) => itemRefs.push(el as HTMLElement)"
+          class="nav-item"
+          :class="{ active: activeSection === s.id }"
+          @click="scrollTo(s.id)"
+        >
+          <span class="nav-dot" />
+          <span class="nav-label">{{ s.label }}</span>
+        </li>
+      </ul>
+    </div>
   </nav>
 
+  <!-- Mobile bottom nav -->
   <nav class="mobile-nav">
     <ul class="mobile-nav-list">
       <li
@@ -45,7 +87,7 @@ function scrollTo(id: string) {
 <style scoped>
 .sidebar {
   position: fixed;
-  left: calc((100vw - 640px) / 2 - 80px);
+  left: max(calc((100vw - 1100px) / 2 - 60px), 12px);
   top: 50%;
   transform: translateY(-50%);
   z-index: 100;
@@ -55,7 +97,21 @@ function scrollTo(id: string) {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
+  position: relative;
+}
+
+/* Floating pill background */
+.nav-pill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: rgba(37, 99, 235, 0.08);
+  border-radius: 8px;
+  transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .nav-item {
@@ -63,22 +119,23 @@ function scrollTo(id: string) {
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  padding: 6px 8px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 1;
 }
 
 .nav-item:hover .nav-label {
   opacity: 1;
-  color: #2563EB;
 }
 
 .nav-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #D1D5DB;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
 }
 
@@ -89,10 +146,10 @@ function scrollTo(id: string) {
 }
 
 .nav-label {
-  font-size: 13px;
+  font-size: 12px;
   color: #6B7280;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.15s ease;
   white-space: nowrap;
 }
 
@@ -119,7 +176,7 @@ function scrollTo(id: string) {
     right: 0;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(8px);
-    border-top: 1px solid #E5E7EB;
+    border-top: 1px solid #E8ECF2;
     z-index: 100;
     padding: 8px 0 env(safe-area-inset-bottom, 8px);
   }
