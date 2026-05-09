@@ -9,24 +9,33 @@ let triggers: ScrollTrigger[] = []
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
 
-  const tl = gsap.fromTo(
-    '.skill-group',
-    { opacity: 0, y: 24, scale: 0.96 },
-    {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.5,
-      stagger: 0.08,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '#skills-section',
-        start: 'top 85%',
+  const groups = document.querySelectorAll('.skill-group')
+  groups.forEach((group, i) => {
+    const isEven = i % 2 === 0
+    const tl = gsap.fromTo(
+      group,
+      {
+        opacity: 0,
+        y: 50,
+        x: isEven ? -40 : 40,
+        scale: 0.92,
       },
-    },
-  )
-
-  if (tl.scrollTrigger) triggers.push(tl.scrollTrigger as ScrollTrigger)
+      {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        scale: 1,
+        duration: 0.65,
+        delay: i * 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: group,
+          start: 'top 90%',
+        },
+      },
+    )
+    if (tl.scrollTrigger) triggers.push(tl.scrollTrigger as ScrollTrigger)
+  })
 })
 
 onUnmounted(() => {
@@ -59,29 +68,29 @@ onUnmounted(() => {
 <style scoped>
 .section-heading {
   font-family: 'Noto Serif SC', 'Lora', serif;
-  font-size: 1.25rem;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
 }
 
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: clamp(14px, 1.5vw, 24px);
 }
 
 .skill-category {
-  font-size: 12px;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
   font-weight: 600;
   font-family: 'Inter', sans-serif;
-  margin-bottom: 10px;
+  margin-bottom: clamp(12px, 1.5vw, 18px);
   color: #1A1A1A;
 }
 
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: clamp(6px, 0.8vw, 10px);
 }
 
 @media (max-width: 1024px) {
@@ -90,7 +99,7 @@ onUnmounted(() => {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .skills-grid {
     grid-template-columns: 1fr;
   }

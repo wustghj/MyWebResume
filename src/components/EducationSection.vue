@@ -61,47 +61,47 @@ onUnmounted(() => {
 <style scoped>
 .section-heading {
   font-family: 'Noto Serif SC', 'Lora', serif;
-  font-size: 1.25rem;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
 }
 
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: clamp(14px, 1.5vw, 24px);
 }
 
 .edu-school {
   font-family: 'Noto Serif SC', 'Lora', serif;
-  font-size: 1.1rem;
-  margin-bottom: 6px;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  margin-bottom: 8px;
 }
 
 .edu-major {
-  font-size: 12px;
+  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
   color: #6B7280;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .edu-period {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: clamp(0.7rem, 0.85vw, 0.8rem);
   color: #9CA3AF;
 }
 
 .github-title {
   font-family: 'Noto Serif SC', 'Lora', serif;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  margin-bottom: 10px;
 }
 
 .github-url {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: clamp(0.75rem, 0.9vw, 0.85rem);
   color: #2563EB;
   text-decoration: none;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   border-bottom: 1px solid transparent;
 }
 
@@ -112,13 +112,13 @@ onUnmounted(() => {
 .github-list {
   list-style: none;
   padding: 0;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .github-list li {
-  font-size: 11px;
+  font-size: clamp(0.75rem, 0.9vw, 0.85rem);
   color: #6B7280;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 @media (max-width: 768px) {

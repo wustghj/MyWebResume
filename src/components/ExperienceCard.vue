@@ -55,7 +55,7 @@ defineProps<{
 
 <style scoped>
 .experience-card {
-  margin-bottom: 20px;
+  margin-bottom: clamp(20px, 2.5vw, 36px);
 }
 
 .exp-header {
@@ -63,12 +63,12 @@ defineProps<{
   justify-content: space-between;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 6px;
+  gap: 12px;
+  margin-bottom: 8px;
 }
 
 .exp-company-row {
-  font-size: 13px;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
   color: #6B7280;
 }
 
@@ -78,68 +78,74 @@ defineProps<{
 }
 
 .exp-separator {
-  margin: 0 6px;
+  margin: 0 8px;
   color: #D1D5DB;
 }
 
 .exp-role {
-  font-size: 12px;
+  font-size: clamp(0.75rem, 0.9vw, 0.85rem);
 }
 
 .exp-period {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: clamp(0.7rem, 0.85vw, 0.8rem);
   color: #9CA3AF;
 }
 
 .exp-project-title {
   font-family: 'Noto Serif SC', 'Lora', serif;
-  font-size: 1.15rem;
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
   font-weight: 600;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
 }
 
 .exp-subtitle {
-  font-size: 12px;
+  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
   color: #6B7280;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .exp-sub-sections {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: clamp(12px, 1.5vw, 20px);
+  margin-bottom: clamp(16px, 2vw, 28px);
 }
 
 .sub-card {
   background: #FAFAFA;
   border: 1px solid #F0F1F3;
-  border-radius: 6px;
-  padding: 14px;
+  border-radius: 8px;
+  padding: clamp(16px, 2vw, 24px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sub-card:hover {
+  border-color: #DBEAFE;
+  background: #F0F4FF;
 }
 
 .exp-sub-title {
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   color: #1F2937;
 }
 
 .exp-bullets {
   list-style: none;
   padding: 0;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .exp-bullets li {
   position: relative;
-  padding-left: 14px;
-  font-size: 11px;
+  padding-left: 16px;
+  font-size: clamp(0.75rem, 0.9vw, 0.85rem);
   color: #4B5563;
-  line-height: 1.6;
-  margin-bottom: 4px;
+  line-height: 1.65;
+  margin-bottom: 6px;
 }
 
 .exp-bullets li::before {
@@ -152,19 +158,19 @@ defineProps<{
 .exp-sub-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
 }
 
 .exp-tech-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  padding-top: 14px;
+  gap: 8px;
+  padding-top: clamp(14px, 2vw, 20px);
   border-top: 1px solid #F0F1F3;
 }
 
 .exp-tech-tag {
-  font-size: 10px;
+  font-size: clamp(0.65rem, 0.8vw, 0.75rem);
   background: #FAFAFA;
 }
 

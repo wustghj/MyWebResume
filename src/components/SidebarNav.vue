@@ -13,7 +13,16 @@ function scrollTo(id: string) {
 
 // Floating pill position
 const pillStyle = ref({ top: '0px', height: '0px' })
+const sidebarLeft = ref('12px')
 const itemRefMap = new Map<string, HTMLElement>()
+
+function updatePosition() {
+  const content = document.querySelector('.content-width')
+  if (content) {
+    const rect = content.getBoundingClientRect()
+    sidebarLeft.value = `${Math.max(rect.left - 56, 12)}px`
+  }
+}
 
 function setItemRef(id: string) {
   return (el: any) => {
@@ -37,21 +46,31 @@ watch(() => props.activeSection, () => {
   requestAnimationFrame(updatePill)
 })
 
-const onResize = () => requestAnimationFrame(updatePill)
+const onResize = () => {
+  requestAnimationFrame(() => {
+    updatePosition()
+    updatePill()
+  })
+}
 
 onMounted(() => {
-  requestAnimationFrame(updatePill)
+  requestAnimationFrame(() => {
+    updatePosition()
+    updatePill()
+  })
   window.addEventListener('resize', onResize)
+  window.addEventListener('scroll', updatePosition, { passive: true })
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', onResize)
+  window.removeEventListener('scroll', updatePosition)
 })
 </script>
 
 <template>
   <!-- Desktop sidebar -->
-  <nav class="sidebar">
+  <nav class="sidebar" :style="{ left: sidebarLeft }">
     <div class="nav-list-wrapper" style="position: relative;">
       <!-- Floating pill -->
       <div
@@ -94,10 +113,10 @@ onUnmounted(() => {
 <style scoped>
 .sidebar {
   position: fixed;
-  left: max(calc((100vw - 1100px) / 2 - 60px), 12px);
   top: 50%;
   transform: translateY(-50%);
   z-index: 100;
+  transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-list {

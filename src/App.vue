@@ -20,9 +20,9 @@ const { activeSection } = useActiveSection(navSections.map(s => s.id))
 </script>
 
 <template>
-  <div class="app-layout flex justify-center">
+  <div class="app-layout">
     <SidebarNav :sections="navSections" :active-section="activeSection" />
-    <main class="content-width w-full">
+    <main class="content-width">
       <HeroSection />
       <SkillsSection />
       <ExperienceSection />
@@ -35,6 +35,7 @@ const { activeSection } = useActiveSection(navSections.map(s => s.id))
 
 <style>
 .app-layout {
-  position: relative;
+  display: flex;
+  justify-content: center;
 }
 </style>

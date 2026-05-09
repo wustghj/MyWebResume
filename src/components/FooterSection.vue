@@ -14,23 +14,23 @@ const year = new Date().getFullYear()
 <style scoped>
 .footer {
   text-align: center;
-  padding-top: 36px;
-  padding-bottom: 36px;
+  padding-top: clamp(24px, 3vw, 40px);
+  padding-bottom: clamp(24px, 3vw, 40px);
   border-top: 1px solid #E8ECF2;
 }
 
 .footer-text {
-  font-size: 12px;
+  font-size: clamp(0.7rem, 0.85vw, 0.8rem);
   color: #6B7280;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .footer-email {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: clamp(0.65rem, 0.8vw, 0.75rem);
   color: #2563EB;
   text-decoration: none;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   border-bottom: 1px solid transparent;
 }
 

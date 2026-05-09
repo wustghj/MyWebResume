@@ -11,24 +11,27 @@ onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
 
   const cards = document.querySelectorAll('.exp-card-wrapper')
-  const tl = gsap.fromTo(
-    cards,
-    { opacity: 0, y: 30, scale: 0.97 },
-    {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.55,
-      stagger: 0.12,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '#experience-section',
-        start: 'top 85%',
+  cards.forEach((card, i) => {
+    const dir = i % 2 === 0 ? 60 : -60
+    const tl = gsap.fromTo(
+      card,
+      { opacity: 0, y: 60, x: dir, scale: 0.94, rotateY: dir > 0 ? 2 : -2 },
+      {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        scale: 1,
+        rotateY: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 88%',
+        },
       },
-    },
-  )
-
-  if (tl.scrollTrigger) triggers.push(tl.scrollTrigger as ScrollTrigger)
+    )
+    if (tl.scrollTrigger) triggers.push(tl.scrollTrigger as ScrollTrigger)
+  })
 })
 
 onUnmounted(() => {
@@ -52,8 +55,8 @@ onUnmounted(() => {
 <style scoped>
 .section-heading {
   font-family: 'Noto Serif SC', 'Lora', serif;
-  font-size: 1.25rem;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
 }
 </style>
